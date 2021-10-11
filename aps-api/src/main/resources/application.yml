@@ -1,0 +1,46 @@
+server:
+  port: 1000
+spring:
+  application:
+    name: aps
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://ip:port/aps?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false
+      username: root
+      password: 123456
+  elasticsearch:
+    rest:
+      uris: http:///ip:port
+      connection-timeout: 5s
+      read-timeout: 5s
+  redis:
+    host: ip
+    port: port
+    timeout: 2000s
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+
+aps:
+  config:
+    code-expire: 300
+    # AES密码加密私钥(Base64加密)
+    encryptAESKey: V2FuZzkyNjQ1NGRTQkFQSUpXVA==
+    # JWT认证加密私钥(Base64加密)
+    encryptJWTKey: U0JBUElKV1RkV2FuZzkyNjQ1NA==
+    # AccessToken过期时间-5分钟-5*60(秒为单位)
+    accessTokenExpireTime: 1800
+    # RefreshToken过期时间-30分钟-30*60(秒为单位)
+    refreshTokenExpireTime: 1800
+    # Shiro缓存过期时间-5分钟-5*60(秒为单位)(一般设置与AccessToken过期时间一致)
+    shiroCacheExpireTime: 300
+    token-check: false
