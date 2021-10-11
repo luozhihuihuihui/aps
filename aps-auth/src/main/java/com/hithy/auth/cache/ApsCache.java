@@ -1,6 +1,7 @@
 package com.hithy.auth.cache;
 
 
+import com.hithy.auth.config.RedisConfig;
 import com.hithy.auth.util.JwtUtil;
 import com.hithy.auth.util.RedisUtil;
 import com.hithy.auth.util.common.PropertiesUtil;
@@ -19,6 +20,8 @@ import java.util.*;
 public class ApsCache<K, V> implements Cache<K, V> {
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private RedisConfig redisConfig;
 
     /**
      * 缓存的key名称获取为shiro:cache:account
@@ -45,11 +48,8 @@ public class ApsCache<K, V> implements Cache<K, V> {
      */
     @Override
     public Object put(Object key, Object value) throws CacheException {
-        // 读取配置文件，获取Redis的Shiro缓存过期时间
-        PropertiesUtil.readProperties("config.properties");
-        String shiroCacheExpireTime = PropertiesUtil.getProperty("shiroCacheExpireTime");
         // 设置Redis的Shiro缓存
-        redisUtil.setObject(this.getKey(key), value, Integer.parseInt(shiroCacheExpireTime));
+        redisUtil.setObject(this.getKey(key), value, redisConfig.getShiroCacheExpireTime());
         return true;
     }
 
