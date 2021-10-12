@@ -1,0 +1,5 @@
+rocketmq:
+  namesrv-addr:localhost: 9876
+  send-msg-timeout-millis: 3000
+  reconsume-times: 3
+
